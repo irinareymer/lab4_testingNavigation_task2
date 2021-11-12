@@ -85,13 +85,25 @@ class NavigationTest {
         changeOrientation(activityScenario)
         isDisplacedFragment1()
         pressButton(R.id.bnToSecond)
+        isDisplacedFragment2()
+        pressButton(R.id.bnToFirst)
+        changeOrientationBack(activityScenario)
+        pressButton(R.id.bnToSecond)
         // in fragment 2
         changeOrientation(activityScenario)
         isDisplacedFragment2()
         pressButton(R.id.bnToThird)
+        isDisplacedFragment3()
+        pressButton(R.id.bnToSecond)
+        changeOrientationBack(activityScenario)
+        pressButton(R.id.bnToThird)
         // in fragment 3
         changeOrientation(activityScenario)
         isDisplacedFragment3()
+        openAbout()
+        checkIsDisplaced(R.id.activity_about)
+        pressBack()
+        changeOrientationBack(activityScenario)
         openAbout()
         // in AboutActivity
         changeOrientation(activityScenario)
@@ -142,11 +154,14 @@ class NavigationTest {
 
     private fun changeOrientation(activityScenario: ActivityScenario<MainActivity>){
         activityScenario.onActivity { activity ->
-            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         }
         Thread.sleep(1000)
+    }
+
+    private fun changeOrientationBack(activityScenario: ActivityScenario<MainActivity>){
         activityScenario.onActivity { activity ->
-            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         }
         Thread.sleep(1000)
     }
